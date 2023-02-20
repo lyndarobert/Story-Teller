@@ -3,15 +3,20 @@
   
   import Menu from "./lib/Menu.svelte";
   import Home from './lib/Home.svelte';
-  import Space from './lib/Space.svelte';
-  import Spaces from "./lib/Spaces.svelte";
   import Login from './lib/Login.svelte';
+  import Story from './lib/Story.svelte';
+  import Stories from "./lib/Stories.svelte";
+  import CreateStory from './lib/CreateStory.svelte';
+  import Register from './lib/Register.svelte';
+  import MyAccount from './lib/MyAccount.svelte';
   const routes = {
     '/': Home,
     '/login': Login,
+    '/register': Register,
     '/stories': Stories,
     '/story/:id': Story,
-    '/createstory': CreateStory
+    '/createstory': CreateStory,
+    '/myaccount': MyAccount,
   };
 </script>
 
