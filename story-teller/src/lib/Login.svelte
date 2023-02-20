@@ -1,7 +1,7 @@
 <script>
   import {push} from 'svelte-spa-router'
   export let reload = false;
-  let email = "lyly", pwd = "1234";
+  let email = "lyly", pwd = "1234", pseudo = "lyly";
 
   const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,7 +22,8 @@
             },
             body: JSON.stringify({
                 "email": email,
-                "password": pwd
+                "password": pwd,
+                "pseudo": pseudo,
             })
         })
         // Extrait le token et le retourne
@@ -37,6 +38,9 @@
 <form on:submit={handleSubmit} aria-label="Informations de connexion">
     <label for="email">Email</label>
     <input required type="email" name="email" id="email" placeholder="ex : m.dupont@monmail.com" bind:value={email}>
+
+    <label for="username">Pseudo</label>
+    <input required type="pseudo" name="pseudo" id="pseudo" placeholder="Entrez un pseudo" bind:value={pseudo}>
 
     <label for="password">Mot de passe</label>
     <input required type="password" name="password" id="password" placeholder="***********" bind:value={pwd}>
