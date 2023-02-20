@@ -14,7 +14,7 @@
       },
       {
           "label": "Formulaire d'inscription au site",
-          "text": "S'enregistrer'",
+          "text": "S'enregistrer",
           "url": "/register"
       },
       {

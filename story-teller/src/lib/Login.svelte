@@ -1,7 +1,7 @@
 <script>
   import {push} from 'svelte-spa-router'
   export let reload = false;
-  let email = "lyly", pwd = "1234", pseudo = "lyly";
+  let email = "lyly@gmail.com", pwd = "1234", pseudo = "lyly";
 
   const handleSubmit = async (event) => {
         event.preventDefault();
