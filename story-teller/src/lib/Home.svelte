@@ -1,12 +1,92 @@
 <script>
-  import Stats from "./Stats.svelte";
+  import Footer from "./Footer.svelte";
+  import { link } from "svelte-spa-router";
+
+  // fonction pour récupérer les histoires de l'API
+  const getStories = async () => {
+    const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/story");
+    const json = await response.json();
+    return json.data;
+  }
+
+  let count = 0;
 </script>
+
+
 
 <h1 id="title1">The Story Teller</h1>
 
-<section aria-label="Introduction">
-  <h2>Qui sommes-nous ?</h2>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam voluptatum dignissimos quidem totam quaerat cumque aspernatur molestiae, sit ducimus esse eum delectus vel assumenda? Sint perferendis accusamus assumenda consectetur quisquam quod, sapiente dolore? Alias tempora aperiam obcaecati possimus dicta! Facilis similique consequatur est perferendis soluta minima eaque, officia tempora ea quam at natus aspernatur excepturi velit odio labore a iste, ipsa corrupti quibusdam dolore laudantium! Dolores eaque sapiente vero quas. Cumque dolor voluptatibus quae! Doloremque, debitis hic. Asperiores, doloribus iusto cupiditate dicta, eius perferendis eaque alias at, dolores architecto fugiat inventore saepe facilis ut suscipit debitis modi quos cum aliquam?</p>
+<section class ="intro" aria-label="Introduction">
+  <h2>"Plongez dans un univers d'histoires uniques et partagez vos propres récits avec une communauté de passionnés !"</h2>
+  
 </section>
 
-<Stats />
+
+
+<div class="stories-container">
+  {#await getStories()}
+    <p>Chargement de la liste...</p>
+  {:then stories} 
+    {#each stories.slice(0,4) as story}
+      <section class="stories" aria-labelledby="story-title-{story.id}">
+        <div>
+          <h2>{story.title}</h2>
+          <p>{story.content.slice(0, story.content.split(' ').slice(0, 20).join(' ').length) + "..."}</p>
+          <a href="/story/{story.id}" use:link>Lire l'histoire</a>
+        </div>
+      </section>
+    {/each}
+  {/await}
+  <a href="/stories" use:link>Voir plus d'histoires</a>
+  <a href="/register" use:link>Ecrivez la vôtre</a>
+</div>
+
+
+<Footer />
+
+
+<style>
+
+h1 {
+  text-align: center;
+  margin: 2rem;
+  
+}
+
+.intro {
+  text-align: center;
+  margin: 50px;
+}
+
+  .stories-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .stories {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+  }
+
+  a{
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0.5rem;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #F97066;
+    color: #fff;
+    text-align: center;
+    transition:  0.3s ease-out;
+  }
+  
+  a:hover{
+   cursor: pointer;
+   background-color: #f7958e;
+   color: #fff;
+  }
+</style>

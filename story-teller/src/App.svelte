@@ -9,6 +9,7 @@
   import CreateStory from './lib/CreateStory.svelte';
   import Register from './lib/Register.svelte';
   import MyAccount from './lib/MyAccount.svelte';
+  
   const routes = {
     '/': Home,
     '/login': Login,
@@ -18,6 +19,7 @@
     '/createstory': CreateStory,
     '/myaccount': MyAccount,
   };
+
 </script>
 
 <header>
