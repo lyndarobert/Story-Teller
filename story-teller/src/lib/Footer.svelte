@@ -48,9 +48,14 @@
   <style>
 
     .stats {
-      text-align: center;
-      border-top: 20px;
- }
+    text-align: center;
+    border-top: 1px solid;
+    padding: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+}
+ 
 
 
   </style>

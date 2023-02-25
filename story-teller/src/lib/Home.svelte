@@ -37,8 +37,11 @@
       </section>
     {/each}
   {/await}
+
+  <div class ="button-container">
   <a href="/stories" use:link>Voir plus d'histoires</a>
   <a href="/register" use:link>Ecrivez la vôtre</a>
+</div>
 </div>
 
 
@@ -50,7 +53,7 @@
 h1 {
   text-align: center;
   margin: 2rem;
-  
+
 }
 
 .intro {
@@ -69,6 +72,10 @@ h1 {
   .stories {
     width: calc(50% - 10px);
     margin-bottom: 20px;
+  }
+
+  .button-container {
+    margin-top: 3rem;
   }
 
   a{

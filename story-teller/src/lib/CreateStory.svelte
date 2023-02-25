@@ -18,7 +18,7 @@
   }
 
   function handleCreate(story) {
-    fetch('https://ylf19dmf.directus.app/items/story', { 
+    fetch('https://khext1e9.directus.app/items/story', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -51,10 +51,13 @@
     <label for="category">Category:</label>
     <select id="category" bind:value={category}>
       <option value="">--Choisir une catégorie--</option>
-      <option value="Roman">Roman</option>
+      <option value="Roman">Romance</option>
       <option value="Policier">Policier</option>
       <option value="Science-fiction">Science-fiction</option>
-      <option value="Fantasy">Fantasy</option>
+      <option value="Fantasy">Fantastique</option>
+      <option value="Poésie">Poésie</option>
+      <option value="ContesetLégendes">Contes et Légendes</option>
+      <option value="Drame">Drame</option>
     </select>
     
     <textarea id="content" bind:value={content}></textarea>

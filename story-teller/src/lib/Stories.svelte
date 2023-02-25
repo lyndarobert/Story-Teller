@@ -7,6 +7,8 @@
         const json = await response.json();
         return json.data;
   }
+
+  
   
 
 </script>
@@ -19,7 +21,7 @@
       <section class="stories" aria-labelledby="story-title-{story.id}">
         <div>
           <h2>{story.title}</h2>
-          <p>{story.content.slice(0, story.content.split(' ').slice(0, 20).join(' ').length) + "..."}</p>
+          <p>{story.content.slice(0, story.content.split(' ').slice(0, 15).join(' ').length) + "..."}</p>
           <a href="/story/{story.id}" use:link>Lire l'histoire</a>
         </div>
       </section>
@@ -37,7 +39,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   max-width: 960px;
-  margin: 0 auto;
+  margin: 4rem;
 }
 
 .stories {

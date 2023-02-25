@@ -31,7 +31,7 @@
     }
     
   
-
+// fonction de déconnexion
     
     const handleLogout = () => {
       localStorage.removeItem('token');
