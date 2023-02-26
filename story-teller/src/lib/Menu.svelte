@@ -1,74 +1,131 @@
 <script>
+  import { isAuthenticated } from '../utils';
+  import { push } from 'svelte-spa-router';
   import Logo from '../assets/Logothestoryteller.png';
   import MenuBurger from '../assets/menu.png'
   import Close from '../assets/close.svg'
   import {link} from 'svelte-spa-router'
-  const nav_links = [
-      {
-          "label": "Page d'accueil du site",
-          "text": "Accueil",
-          "url": "/"
-      },
-      {
-          "label": "Formulaire de connexion au site",
-          "text": "Se connecter",
-          "url": "/login"
-      },
-      {
-          "label": "Formulaire d'inscription au site",
-          "text": "S'enregistrer",
-          "url": "/register"
-      },
-      {
-          "label": "Formulaire de gestion de compte",
-          "text": "Mon compte",
-          "url": "/myaccount"
-      },
-      {
-          "label": "Page des histoires",
-          "text": "Histoires",
-          "url": "/stories"
-      },
-      {
-          "label": "Page de création d'une histoire",
-          "text": "Ecrire une histoire",
-          "url": "/createstory"
-      },
-      {
-          "label": "Page de déconnexion",
-          "text": "Se déconnecter",
-          "url": "/"
-      },
-  ];
-   
-    let showMenu = false;
   
-    function toggleMenu() {
+  const nav_links = [
+  {
+    "label": "Page d'accueil du site",
+    "text": "Accueil",
+    "url": "/",
+    "showOnlyIfAuthenticated": true
+    
+  },
+  {
+    "label": "Formulaire de connexion au site",
+    "text": "Se connecter",
+    "url": "/login",
+    "showOnlyIfNotAuthenticated": true
+  },
+  {
+    "label": "Formulaire d'inscription au site",
+    "text": "S'enregistrer",
+    "url": "/register",
+    "showOnlyIfNotAuthenticated": true
+  },
+  {
+    "label": "Formulaire de gestion de compte",
+    "text": "Mon compte",
+    "url": "/myaccount",
+    "showOnlyIfAuthenticated": true
+  },
+  {
+    "label": "Page des histoires",
+    "text": "Histoires",
+    "url": "/stories",
+    "showOnlyIfAuthenticated": false
+  },
+  {
+    "label": "Page de création d'une histoire",
+    "text": "Ecrire une histoire",
+    "url": "/createstory",
+    "showOnlyIfAuthenticated": true
+  },
+  {
+    "label": "Page de déconnexion",
+    "text": "Se déconnecter",
+    "url": "/",
+    "showOnlyIfAuthenticated": true
+  },
+ 
+];
+console.log (nav_links);
+
+  let showMenu = false;
+
+  function toggleMenu() {
     showMenu = !showMenu;
-    console.log(1);
   }
-    </script>
+
+  const authenticated = isAuthenticated();
+  console.log(authenticated);
+
+  $: filteredNavLinks = nav_links.filter((nav_link) => {
+  console.log("nav_link:", nav_link); // 
+  console.log("authenticated:", authenticated);
+  if (nav_link.showOnlyIfAuthenticated && !authenticated) {
+    console.log("filtered: showOnlyIfAuthenticated && !authenticated");
+    return false;
+  }
+  if (nav_link.showOnlyIfNotAuthenticated && authenticated) {
     
-    <div class= "header-content">
-        <div class="modal_menu_burger">
-            <button class="toggle-menu-button" on:click={toggleMenu}><img src="{MenuBurger}" alt="menu-burger" width="40px"></button>
-          </div>
-          <div class="logo">
-              <img src="{Logo}" alt="Logo du site" width="200">
-          </div>
-          <div class="modal_menu_burger-second">
-            <img src="{MenuBurger}" alt="menu-burger" width="40px">
-          </div>
-              <nav id="menu2" class = {`links ${showMenu ? 'class-open' : 'class-close'}`} role="menu" aria-label="header navigation">
-                <div class="modal_menu_burger">
-                    <button class="toggle-menu-button" on:click={toggleMenu}><img src="{Close}" alt="menu-burger" width="40px"></button>
-                  </div>
-                {#each nav_links as nav}
-                      <a role="menuitem" aria-label="{nav.label}" class="{nav.class}" href="{nav.url}" on:click={toggleMenu} use:link>{nav.text}</a>
+    return false;
+  }
+  console.log("not filtered");
+  return true;
+});
+
+
+
+</script>
     
-                {/each}
-            </nav>
-        </div>
+<div class="header-content">
+    <div class="modal_menu_burger">
+      <button class="toggle-menu-button" on:click={toggleMenu}>
+        <img src="{MenuBurger}" alt="menu-burger" width="40px" />
+      </button>
+    </div>
+    <div class="logo">
+      <img src="{Logo}" alt="Logo du site" width="200" />
+    </div>
+    <div class="modal_menu_burger-second">
+      <img src="{MenuBurger}" alt="menu-burger" width="40px" />
+    </div>
+    <nav
+      id="menu2"
+      class="links {showMenu ? 'class-open' : 'class-close'}"
+      role="menu"
+      aria-label="header navigation"
+    >
+      <div class="modal_menu_burger">
+        <button class="toggle-menu-button" on:click={toggleMenu}>
+          <img src="{Close}" alt="menu-burger" width="40px" />
+        </button>
+      </div>
+      {#each filteredNavLinks as nav}
+      <a
+      role="menuitem"
+      aria-label="{nav.label}"
+      class="{nav.class}"
+      href="{nav.url}"
+      on:click={() => {
+        toggleMenu();
+        if (nav.url === '/') {
+          handleLogout();
+        }
+      }}
+      use:link
+    >
+      {nav.text}
+    </a>
+        
+      {/each}
+    </nav>
+  </div>
+  
   
       <style>
         .header-content{
@@ -88,6 +145,7 @@
           color: #fff;
           text-align: center;
           transition:  0.3s ease-out;
+          
         }
         
         a:hover{

@@ -1,13 +1,16 @@
 <script>
   import { push } from 'svelte-spa-router'
+  
+  
   let email = "", pwd = "", pseudo = "", newPseudo = "", newPwd = "";
+  let stories = [];
 
   const handleSubmit = async (event) => {
     console.log("endpoint: ", import.meta.env.VITE_URL_DIRECTUS + "items/user");
     console.log("body: ", JSON.stringify({
-        "Email": email,
-        "Password": pwd,
-        "Pseudo": pseudo,
+        "email": email,
+        "password": pwd,
+        "pseudo": pseudo,
         
         
       }));
@@ -29,8 +32,8 @@
       },
       body: JSON.stringify({
         
-        "Password": pwd,
-        "Pseudo": pseudo,
+        "password": pwd,
+        "pseudo": pseudo,
         
       })
       
@@ -41,14 +44,12 @@
     
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    push('/');
-  }
+  // const handleLogout = () => {
+  //   localStorage.removeItem('token');
+  //   push('/');
+  // }
 
-  function isAuthenticated() {
-    return localStorage.getItem('token') !== null;
-  }
+
 </script>
 
 <h2 class="title1">Gérer mon compte</h2>
@@ -65,10 +66,10 @@
 
 
     <label for="password">Mot de passe actuel</label>
-    <input required type="password" name="password" id="password" placeholder="**" bind:value={pwd}>
+    <input required type="password" name="password" id="password" placeholder="*******" bind:value={pwd}>
     <!-- formulaire de changement de mot de passe -->
     <label for="password">Nouveau Mot de passe </label>
-    <input required type="password" name="password" id="password" placeholder="**" bind:value={newPwd}>
+    <input required type="password" name="password" id="password" placeholder="*******" bind:value={newPwd}>
 
 
     <input class="connexion" type="submit" value="Validez les changements">

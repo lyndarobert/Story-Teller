@@ -1,6 +1,7 @@
 body{
     background-image: url("src/assets/background.png");
     font-family: 'Bree', sans-serif;
+    background-repeat: no-repeat;
   }
 
   title {

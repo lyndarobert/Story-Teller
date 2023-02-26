@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+ 
 
   const dispatch = createEventDispatcher();
   let title = '';
@@ -33,14 +34,18 @@
     .then(data => {
       console.log('Story published:', data);
       message = 'Votre histoire a été publiée avec succès.';
-      // Mettre à jour l'état de l'application pour refléter la nouvelle histoire publiée
+      // Mmessage pour la nouvelle histoire publiée
     })
     .catch(error => {
       console.error('Error publishing story:', error);
       message = 'Une erreur est survenue lors de la publication de votre histoire.';
-      // Gérer les erreurs de publication de l'histoire
+      // Gére les erreurs de publication de l'histoire
     });
   }
+
+  
+
+
 </script>
 
 <div class ="container-create">

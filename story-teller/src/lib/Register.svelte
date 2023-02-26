@@ -1,8 +1,9 @@
 <script>
     import {push} from 'svelte-spa-router'
     import { link } from "svelte-spa-router";
-   
-    export let reload = false;
+
+
+export let reload = false;
     let email = "", pwd = "", confirmPwd = "", pseudo = "";
   
     const handleSubmit = async (event) => {
@@ -44,11 +45,7 @@
   }
   };
   
-      //  fonction pour se déconnecter
-      const handleLogout = () => {
-              localStorage.removeItem('token');
-              push('/');
-      };
+     
   </script>
 
 

@@ -1,42 +1,51 @@
 
 <script>
    import {push} from 'svelte-spa-router'
+ 
     export let reload = false;
     let pseudo = "" , pwd = "";
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const token = await login();
-        localStorage.setItem('token', token);
-        // Recharge la page
-        if ( reload ) location.reload();
-        // ou redirige vers l'accueil après connexion
-        else push("/myaccount");
-    }
-    const login = async () => {
-        // Appel du endpoint avec la bonne méthode et les données d'identification
-        const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                 "password": pwd,
-                 "pseudo": pseudo,
-            })
+    let token;
+
+const login = async () => {
+    // Appel du endpoint avec la bonne méthode et les données d'identification
+    const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+             "password": pwd,
+             "pseudo": pseudo,
         })
-        // Extrait le token et le retourne
-        const json = await response.json();
-        return json.data.access_token;
-        console.log("json");
-    }
+    })
+
+    // Extrait le token et le stocke dans la variable token
+    const json = await response.json();
+    token = json.data.access_token;
+
+    console.log(json);
+}
+
+const handleSubmit = async (event) => {
+    event.preventDefault();
+    await login();
+    localStorage.setItem('token', token);
+    console.log(token);
+    // Recharge la page
+    if (reload) location.reload();
+    // ou redirige vers l'accueil après connexion
+    else push("/myaccount");
+}
+
     
-  
+
+   
 // fonction de déconnexion
     
-    const handleLogout = () => {
-      localStorage.removeItem('token');
-      push('/');
-    }
+    // const handleLogout = () => {
+    //   localStorage.removeItem('token');
+    //   push('/');
+    // }
 
 
     

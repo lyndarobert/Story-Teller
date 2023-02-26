@@ -21,13 +21,18 @@
       <section class="stories" aria-labelledby="story-title-{story.id}">
         <div>
           <h2>{story.title}</h2>
-          <p>{story.content.slice(0, story.content.split(' ').slice(0, 15).join(' ').length) + "..."}</p>
+          {#if story.content}
+            <p>{story.content.slice(0, story.content.split(' ').slice(0, 15).join(' ').length) + "..."}</p>
+          {:else}
+            <p>Pas de contenu disponible</p>
+          {/if}
           <a href="/story/{story.id}" use:link>Lire l'histoire</a>
         </div>
       </section>
     {/each}
   {/await}
 </div>
+
 
 
 
