@@ -3,22 +3,26 @@
     import { link } from "svelte-spa-router";
 
 
-export let reload = false;
+    export let reload = false;
     let email = "", pwd = "", confirmPwd = "", pseudo = "";
+    
   
     const handleSubmit = async (event) => {
           event.preventDefault();
+
           if (pwd !== confirmPwd) {
               alert("Les mots de passe ne correspondent pas.");
               return;
           }
+          
           const token = await register();
   
           localStorage.setItem("token", token);
+          console.log(token);
           // Recharge la page
           if ( reload ) location.reload();
           // ou redirige vers l'accueil après inscription
-          else push("/myaccount");
+          else push("/login");
       }
   
       const register = async () => {
@@ -44,6 +48,14 @@ export let reload = false;
     throw new Error(json.error.message);
   }
   };
+
+  // fonction qui verifie que l'user est deja enregistré avec cette adresse mail :
+
+//   const checkIfUserExists = async (email) => {
+//   const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}items/user?email=${email}`);
+//   const json = await response.json();
+//   return json.data.length > 0;
+// }
   
      
   </script>

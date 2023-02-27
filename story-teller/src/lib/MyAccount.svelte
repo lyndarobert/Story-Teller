@@ -1,5 +1,7 @@
 <script>
   import { push } from 'svelte-spa-router'
+  import { isAuthenticated } from '../auth';
+  import {handleLogout} from '../auth';
   
   
   let email = "", pwd = "", pseudo = "", newPseudo = "", newPwd = "";
@@ -26,7 +28,7 @@
     // Appel du endpoint avec la bonne méthode et les données d'identification
     const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
   
-      method: "PUT",
+      method: "PATCHT",
       headers: {
         "content-type": "application/json"
       },

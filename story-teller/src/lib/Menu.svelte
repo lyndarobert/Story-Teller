@@ -1,5 +1,6 @@
 <script>
-  import { isAuthenticated } from '../utils';
+  import { isAuthenticated } from '../auth';
+  import {handleLogout} from '../auth';
   import { push } from 'svelte-spa-router';
   import Logo from '../assets/Logothestoryteller.png';
   import MenuBurger from '../assets/menu.png'
