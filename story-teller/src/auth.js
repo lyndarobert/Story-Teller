@@ -1,6 +1,10 @@
+import { push } from 'svelte-spa-router';
+
 export const isAuthenticated = () => {
+  
   return localStorage.getItem('token') !== null;
-};
+ 
+   };
 
 console.log (isAuthenticated);   
 
@@ -8,6 +12,7 @@ console.log (isAuthenticated);
 export const handleLogout = () => {
     localStorage.removeItem('token');
     push('/');
+    window.location.reload();
   }
 
   console.log (handleLogout);   

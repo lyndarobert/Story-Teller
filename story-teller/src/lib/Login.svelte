@@ -1,19 +1,24 @@
-
 <script>
     import {push} from 'svelte-spa-router'
     import { isAuthenticated } from '../auth';
     import {handleLogout} from '../auth';
+    import { link } from "svelte-spa-router";
+
+
      export let reload = false;
-     let pseudo = "" , pwd = "", email = "";
+     let pseudo = "abcd" , pwd = "abcd", email = "abcd@gmail.com";
      const handleSubmit = async (event) => {
+   
          event.preventDefault();
+         
          const token = await login();
          console.log (token);
-                 localStorage.setItem('token', token);
+        localStorage.setItem('token', token);
          // Recharge la page
          if ( reload ) location.reload();
          // ou redirige vers l'accueil après connexion
          else push("/myaccount");
+         
      }
      const login = async () => {
          // Appel du endpoint avec la bonne méthode et les données d'identification
@@ -38,6 +43,7 @@
 
      
    </script>
+
  
  <div class="login-content">
      <div class="log-form">

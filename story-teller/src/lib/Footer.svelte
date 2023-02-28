@@ -11,8 +11,8 @@
       const storiesJson = await storiesResponse.json();
       const usersJson = await usersResponse.json();
   
-      numStories = storiesJson.data.length;
-      numUsers = usersJson.data.length;
+      numStories = storiesJson.data?.length;
+      numUsers = usersJson.data?.length;
   
       $: stats = [
         {

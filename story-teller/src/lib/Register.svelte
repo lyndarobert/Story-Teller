@@ -1,6 +1,8 @@
-<script>
+<!-- <script>
     import {push} from 'svelte-spa-router'
     import { link } from "svelte-spa-router";
+    import { isAuthenticated } from '../auth';
+    import {handleLogout} from '../auth';
 
 
     export let reload = false;
@@ -51,11 +53,11 @@
 
   // fonction qui verifie que l'user est deja enregistré avec cette adresse mail :
 
-//   const checkIfUserExists = async (email) => {
-//   const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}items/user?email=${email}`);
-//   const json = await response.json();
-//   return json.data.length > 0;
-// }
+  const checkIfUserExists = async (email) => {
+  const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}items/user?email=${email}`);
+  const json = await response.json();
+  return json.data.length > 0;
+}
   
      
   </script>
@@ -162,4 +164,4 @@
     
         }
     
-    </style>
+    </style> -->

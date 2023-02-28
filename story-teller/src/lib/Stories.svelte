@@ -1,5 +1,6 @@
 <script>
      import { link } from "svelte-spa-router"; 
+    import { isAuthenticated } from "../auth";
 
   // fonction pour récupérer les histoires de l'API
   const getStories = async () => {
@@ -8,7 +9,13 @@
         return json.data;
   }
 
-  
+  // fonction pour rediriger les utilisateurs non connectés vers la page d'enregistrement
+  const redirectToRegister = () => {
+    if (!isAuthenticated) {
+      push('/register');
+    }
+  }
+
   
 
 </script>
@@ -26,7 +33,7 @@
           {:else}
             <p>Pas de contenu disponible</p>
           {/if}
-          <a href="/story/{story.id}" use:link>Lire l'histoire</a>
+          <a href="/story/{story.id}" on:click={redirectToRegister} use:link>Lire l'histoire</a>
         </div>
       </section>
     {/each}
