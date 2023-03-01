@@ -6,39 +6,15 @@
   const getStories = async () => {
         const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/story");
         const json = await response.json();
+        console.log(json);
         return json.data;
   }
 
-  // fonction pour rediriger les utilisateurs non connectés vers la page d'enregistrement
-  const redirectToRegister = () => {
-    if (!isAuthenticated) {
-      push('/register');
-    }
-  }
-
-  
+ 
 
 </script>
 
-<!-- <div class="stories-container">
-  {#await getStories()}
-    <p>Chargement de la liste...</p>
-  {:then stories} 
-    {#each stories as story}
-      <section class="stories" aria-labelledby="story-title-{story.id}">
-        <div>
-          <h2>{story.title}</h2>
-          {#if story.content}
-            <p>{story.content.slice(0, story.content.split(' ').slice(0, 15).join(' ').length) + "..."}</p>
-          {:else}
-            <p>Pas de contenu disponible</p>
-          {/if}
-          <a href="/story/{story.id}" on:click={redirectToRegister} use:link>Lire l'histoire</a>
-        </div>
-      </section>
-    {/each}
-  {/await}
-</div> -->
+
 
 <div class="stories-container">
   {#await getStories()}
@@ -49,9 +25,11 @@
         <div class="story-content">
         <div class="story-card" data-aos="fade-left" data-aos-easing="ease-out-back" data-aos-delay="40">
           <h2>{story.title}</h2>
+          <img src="https://khext1e9.directus.app/assets/{story.image}" alt="{story.title}">
           <p>{story.content.slice(0, story.content.split(' ').slice(0, 30).join(' ').length) + "..."}</p>
           <div class="link">
           <a href="/story/{story.id}" class="{story.id}" use:link>Lire l'histoire</a>
+          <p>{story.category}</p>
         </div>
         </div>
       </div>

@@ -1,12 +1,13 @@
 <!-- <script>
   import { link } from "svelte-spa-router"; 
+   import { onMount } from 'svelte';
   let stories = [];
 
   async function getStories() {
-    const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}/auth/authenticate`, {
+    const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}/auth/authenticate`,  {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'abcd@gmail.com', password: 'abcd' })
+      body: JSON.stringify({ email: 'mardi@gmail.com', password: 'mardi' })
     });
     const { access_token: accessToken } = await response.json();
 

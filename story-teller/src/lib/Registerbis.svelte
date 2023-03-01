@@ -10,33 +10,39 @@ export let reload = false;
  let confirmPassword = '';
  let errorMessage = '';
 
-
  const handleSubmit = async (event) => {
-   event.preventDefault();
+  event.preventDefault();
 
-   if (password !== confirmPassword) {
-     errorMessage = "Les mots de passe ne correspondent pas.";
-     return;
-   }
+  if (password !== confirmPassword) {
+    errorMessage = "Les mots de passe ne correspondent pas.";
+    return;
+  }
 
-   try {
-     const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
-       method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ email, password }),
-     });
+  const exists = await emailExists(email);
+  if (exists) {
+    errorMessage = "Un utilisateur avec cette adresse email existe déjà.";
+    return;
+  }
 
-       // Recharge la page
-       if ( reload ) location.reload();
-     // ou redirige vers l'accueil après inscription
-       else push("/login");
+  try {
+    // Enregistrement de l'utilisateur
+    const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
 
-   } catch (error) {
-     console.error(error);
-     errorMessage = "Une erreur est survenue lors de l'inscription.";
-     alert("Une erreur est survenue lors de l'inscription.")
-   };
- };
+    // Recharge la page
+    if (reload) location.reload();
+    // ou redirige vers l'accueil après inscription
+    else push("/login");
+
+  } catch (error) {
+    console.error(error);
+    errorMessage = "Une erreur est survenue lors de l'inscription.";
+    alert("Une erreur est survenue lors de l'inscription.")
+  };
+};
 
 
  const userRole = async () => {
@@ -51,11 +57,18 @@ export let reload = false;
      body: JSON.stringify({ 
        email,
        password,
-       role: "938f0498-f544-458c-9388-99142ef7cbd2"
+       role: "49d144e1-3da7-41fc-8b40-b2ae9167c1a4"
      }),
    }
  );
-}
+};
+
+const emailExists = async (email) => {
+  const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}items/user?filter[email][_eq]=${email}`);
+  const data = await response.json();
+  return data.data.length > 0;
+};
+
 
 </script>
 

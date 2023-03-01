@@ -1,81 +1,67 @@
 <script>
   import { push } from 'svelte-spa-router'
   import { isAuthenticated } from '../auth';
-  import {handleLogout} from '../auth';
+  import { handleLogout } from '../auth';
   
+  let email = "", pwd = "", newPseudo = "", newPwd = "";
   
-  let email = "", pwd = "", pseudo = "", newPseudo = "", newPwd = "";
-  let stories = [];
-
   const handleSubmit = async (event) => {
-    console.log("endpoint: ", import.meta.env.VITE_URL_DIRECTUS + "items/user");
-    console.log("body: ", JSON.stringify({
-        "email": email,
-        "password": pwd,
-        "pseudo": pseudo,
-        
-        
-      }));
     event.preventDefault();
-    const token = await login();
-    localStorage.setItem('token', token);
-    push("/");
-  }
+    
+    if (!isAuthenticated()) {
+      console.log("Vous devez vous connecter pour modifier votre mot de passe.");
+      return;
+    }
 
-  const login = async () => {
+    const token = localStorage.getItem('token');
 
-
-    // Appel du endpoint avec la bonne méthode et les données d'identification
-    const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
-  
+    const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user/"+ id, {
       method: "PATCH",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        
+        "email": email,
         "password": pwd,
-        "pseudo": pseudo,
-        
+        "pseudo": newPseudo,
+        "new_password": newPwd
       })
-      
     })
-    // Extrait le token et le retourne
-    const json = await response.json();
-    return json.data.access_token;
-    
+
+    if (response.status === 200) {
+      console.log("Mot de passe modifié avec succès !");
+      handleLogout();
+      push("/login");
+    } else {
+      console.log("Erreur lors de la modification du mot de passe.");
+    }
   }
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token');
-  //   push('/');
-  // }
-
-
 </script>
 
-<h2 class="title1">Gérer mon compte</h2>
 
-<form on:submit={handleSubmit} aria-label="Page de gestion de compte">
+<h1>Modifier le mot de passe</h1>
 
-
-    <label for="username">Votre Pseudo Actuel</label>
-    <input required type="pseudo" name="pseudo" id="pseudo" placeholder="Entrez un pseudo" bind:value={pseudo}>
-    <!-- formulaire pour choisir un nouveau pseudo -->
-    <label for="username">Choisissez un nouveau Pseudo</label>
-    <input required type="pseudo" name="pseudo" id="pseudo" placeholder="Entrez un pseudo" bind:value={newPseudo}>
-
-
-
-    <label for="password">Mot de passe actuel</label>
-    <input required type="password" name="password" id="password" placeholder="*******" bind:value={pwd}>
-    <!-- formulaire de changement de mot de passe -->
-    <label for="password">Nouveau Mot de passe </label>
-    <input required type="password" name="password" id="password" placeholder="*******" bind:value={newPwd}>
-
-
-    <input class="connexion" type="submit" value="Validez les changements">
+<form on:submit={handleSubmit}>
+  <label>
+    Adresse e-mail :
+    <input type="email" bind:value={email} required>
+  </label>
+  <label>
+    Mot de passe actuel :
+    <input type="password" bind:value={pwd} required>
+  </label>
+  <label>
+    Nouveau pseudo :
+    <input type="text" bind:value={newPseudo}>
+  </label>
+  <label>
+    Nouveau mot de passe :
+    <input type="password" bind:value={newPwd} required>
+  </label>
+  <button type="submit">Modifier le mot de passe</button>
 </form>
+
 
 
 
