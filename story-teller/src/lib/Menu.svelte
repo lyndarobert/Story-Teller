@@ -11,6 +11,13 @@
   
   const nav_links = [
     {
+      "label": "Page d'accueil du site",
+      "text": "Accueil",
+      "url": "/",
+      "showOnlyIfAuthenticated": true
+
+    },
+    {
       "label": "Formulaire de connexion au site",
       "text": "Se connecter",
       "url": "/login",
@@ -30,7 +37,7 @@
     },
     {
       "label": "Page des histoires",
-      "text": "Histoires",
+      "text": "Lire les Histoires",
       "url": "/stories",
       "showOnlyIfAuthenticated": false
     },
@@ -38,13 +45,15 @@
       "label": "Page de création d'une histoire",
       "text": "Ecrire une histoire",
       "url": "/createstory",
-      "showOnlyIfAuthenticated": true
+      "showOnlyIfAuthenticated": false,
+      
+      
     },
     {
-            "label": "Gestion des stories de l'user",
-            "text": "Mes histoires",
-            "url": "/mystories",
-            "showOnlyIfAuthenticated": true
+      "label": "Gestion des stories de l'user",
+      "text": "Mes histoires",
+      "url": "/mystories",
+      "showOnlyIfAuthenticated": true
         },
     {
       "label": "Page de déconnexion",
@@ -94,9 +103,9 @@
         <img src="{MenuBurger}" alt="menu-burger" width="40px" />
       </button>
     </div>
-    <div class="logo">
-      <img src="{Logo}" alt="Logo du site" width="200" />
-    </div>
+    <div class="logo" data-aos="fade-up">
+      <a href="/" class="logo-link"> <img src="{Logo}" alt="Logo du site" width="200"></a>
+   </div>
     <div class="modal_menu_burger-second">
       <img src="{MenuBurger}" alt="menu-burger" width="40px" />
     </div>
@@ -279,13 +288,12 @@
       }
       
       .logo-link{
-          background-color: #f7958e00;
-          z-index: 0;
-      }
-      
-      .logo-link:hover{
-          background-color: #f7958e00;
-      }
+    background-color: #f7958e00;
+    z-index: 0;
+}
+
+.logo-link:hover{
+    background-color: #f7958e00;}
       
       
       a{

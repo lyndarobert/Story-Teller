@@ -1,92 +1,91 @@
 <!-- <script>
-    import {push} from 'svelte-spa-router'
-    import { link } from "svelte-spa-router";
-    import { isAuthenticated } from '../auth';
-    import {handleLogout} from '../auth';
+  import {push} from 'svelte-spa-router'
+ import { link } from "svelte-spa-router";
 
 
-    export let reload = false;
-    let email = "", pwd = "", confirmPwd = "", pseudo = "";
-    
-  
-    const handleSubmit = async (event) => {
-          event.preventDefault();
+export let reload = false;
 
-          if (pwd !== confirmPwd) {
-              alert("Les mots de passe ne correspondent pas.");
-              return;
-          }
-          
-          const token = await register();
-  
-          localStorage.setItem("token", token);
-          console.log(token);
-          // Recharge la page
-          if ( reload ) location.reload();
-          // ou redirige vers l'accueil après inscription
-          else push("/login");
-      }
-  
-      const register = async () => {
-          // Appel du endpoint avec la bonne méthode et les données d'inscription
-          const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
-              method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-  
-      },
-      body: JSON.stringify({
-        "email": email,
-        "password": pwd,
-        "pseudo": pseudo,
-      }),
-    });
-  
-    // Vérifie si la réponse est OK et renvoie true si c'est le cas
-  if (response.ok) {
-    const json = await response.json();
-    return json.access_token
+ let email = ''
+ let password = '';
+ let confirmPassword = '';
+ let errorMessage = '';
 
-    throw new Error(json.error.message);
-  }
-  };
 
-  // fonction qui verifie que l'user est deja enregistré avec cette adresse mail :
+ const handleSubmit = async (event) => {
+   event.preventDefault();
 
-  const checkIfUserExists = async (email) => {
-  const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}items/user?email=${email}`);
-  const json = await response.json();
-  return json.data.length > 0;
+   if (password !== confirmPassword) {
+     errorMessage = "Les mots de passe ne correspondent pas.";
+     return;
+   }
+
+   try {
+     const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({ email, password }),
+     });
+
+       // Recharge la page
+       if ( reload ) location.reload();
+     // ou redirige vers l'accueil après inscription
+       else push("/login");
+
+   } catch (error) {
+     console.error(error);
+     errorMessage = "Une erreur est survenue lors de l'inscription.";
+     alert("Une erreur est survenue lors de l'inscription.")
+   };
+ };
+
+ const userRole = async () => {
+ // Appel du endpoint avec la bonne méthode et les données d'identification
+ const response = await fetch(
+   import.meta.env.VITE_URL_DIRECTUS + "users",
+   {
+     method: "POST",
+     headers: {
+       "content-type": "application/json",
+     },
+     body: JSON.stringify({ 
+       email,
+       password,
+       role: "938f0498-f544-458c-9388-99142ef7cbd2"
+     }),
+   }
+ );
 }
   
      
   </script>
 
 
+<main>
+  <h1>Inscription</h1>
 
-  
-  <div class="register-content">
-    <div class="register-form">
-      <h2 class="title1">S'inscrire</h2>
-      <form on:submit={handleSubmit} aria-label="Informations de connexion">
-        <label for="email">Email</label>
-        <input required type="email" name="email" id="email" placeholder="ex : m.dupont@monmail.com" bind:value={email}>
-  
-        <label for="username">Pseudo</label>
-        <input required type="pseudo" name="pseudo" id="pseudo" placeholder="Entrez un pseudo" bind:value={pseudo}>
-  
-        <label for="password">Mot de passe</label>
-        <input required type="password" name="password" id="password" placeholder="***********" bind:value={pwd}>
-  
-        <label for="password">Confirmer Mot de passe</label>
-        <input required type="password" name="password" id="password" placeholder="***********" bind:value={confirmPwd}>
-  
-        <input class="conexion" type="submit" value="S'inscrire">
-      </form>
-    </div>
-  
-    <img class="register-img" src="src/assets/8741-removebg-preview.png" alt="register" width="500">
-  </div>
+  {#if errorMessage}
+    <p style="color: red;">{errorMessage}</p>
+  {/if}
+
+  <form on:submit={handleSubmit} on:submit={userRole}>
+    <label>
+      Email:
+      <input type="email" bind:value={email} required />
+    </label>
+
+    <label>
+      Mot de passe:
+      <input type="password" bind:value={password} required />
+    </label>
+
+    <label>
+      Confirmer le mot de passe:
+      <input type="password" bind:value={confirmPassword} required />
+    </label>
+
+    <button type="submit">S'inscrire</button>
+  </form>
+</main>
 
   <a href="/login" use:link>Vous avez deja un compte ?</a>
   

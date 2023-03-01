@@ -51,7 +51,7 @@ export let reload = false;
      body: JSON.stringify({ 
        email,
        password,
-       role: "8e7da95b-1e59-49b7-bc51-e20b622db3fe"
+       role: "938f0498-f544-458c-9388-99142ef7cbd2"
      }),
    }
  );
@@ -59,29 +59,105 @@ export let reload = false;
 
 </script>
 
-<main>
-  <h1>Inscription</h1>
+<div class="register-content">
+  <div class="register-form">
+ <h1 class="title1">Inscription</h1>
 
-  {#if errorMessage}
-    <p style="color: red;">{errorMessage}</p>
-  {/if}
+ {#if errorMessage}
+   <p style="color: red;">{errorMessage}</p>
+ {/if}
 
-  <form on:submit={handleSubmit} on:submit={userRole}>
-    <label>
-      Email:
-      <input type="email" bind:value={email} required />
-    </label>
+ <form on:submit={handleSubmit} on:submit={userRole} data-aos="fade-left">
+   <!-- svelte-ignore a11y-label-has-associated-control -->
+   <label for="email">Email:</label>
+   <input type="email" bind:value={email} required />
 
-    <label>
-      Mot de passe:
-      <input type="password" bind:value={password} required />
-    </label>
+   <label for="password">Mot de passe:</label>
+    <input type="password" bind:value={password} required />
 
-    <label>
-      Confirmer le mot de passe:
-      <input type="password" bind:value={confirmPassword} required />
-    </label>
+   <label for="confirmpassword">Confirmer le mot de passe:</label>
+    <input type="password" bind:value={confirmPassword} required />
 
-    <button type="submit">S'inscrire</button>
-  </form>
-</main>
+   <input class="connexion" type="submit" value="S'inscrire">
+ </form>
+
+ </div>
+  <img class="register-img" src="src/assets/8741-removebg-preview.png" alt="register" width="500" data-aos="fade-right">
+ </div>
+
+
+
+<style>
+ .register-content{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.title1{
+  text-align: center;
+  padding: 2rem 0 0.5rem;
+  color: #F97066;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+}
+
+label{
+  margin: 0.5rem;
+  color: #F97066;
+  font-weight: bold;
+}
+
+input{
+  margin-bottom: 1rem;
+  padding: 1rem 8rem 1rem 0.8rem;
+  border: 1px solid #F97066;
+  border-radius: 10px;
+}
+
+.connexion{
+  border: 1px solid #F97066;
+  border-radius: 8px;
+  background-color: #F97066;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 4rem;
+  transition: all 0.4s;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.connexion:hover{
+    cursor: pointer;
+    background-color: #f7958e;
+    color: #fff;
+
+}
+
+@media screen and (max-width:1130px){
+
+  .register-content{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+    input{
+    text-align: left;
+    margin-bottom: 1rem;
+    padding: 0.5rem 4rem 0.5rem 0.4rem;
+    border: 1px solid #F97066;
+}
+.register-img{
+    display: none;
+}
+
+}
+
+</style>
