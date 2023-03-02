@@ -5,6 +5,7 @@
 
 export let reload = false;
 
+ let pseudo = '';
  let email = ''
  let password = '';
  let confirmPassword = '';
@@ -29,7 +30,7 @@ export let reload = false;
     const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, pseudo }),
     });
 
     // Recharge la page
@@ -81,9 +82,14 @@ const emailExists = async (email) => {
  {/if}
 
  <form on:submit={handleSubmit} on:submit={userRole} data-aos="fade-left">
-   <!-- svelte-ignore a11y-label-has-associated-control -->
+  
+
+
    <label for="email">Email:</label>
    <input type="email" bind:value={email} required />
+
+   <label for="pseudo">Pseudo:</label>
+   <input type="pseudo" bind:value={pseudo} required />
 
    <label for="password">Mot de passe:</label>
     <input type="password" bind:value={password} required />

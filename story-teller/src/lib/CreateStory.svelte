@@ -2,6 +2,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { isAuthenticated } from '../auth.js';
+  import { link } from "svelte-spa-router";
 
   const dispatch = createEventDispatcher();
   let title = '';
@@ -41,10 +42,10 @@
   async function handleCreate(story) {
     const token = localStorage.getItem('token');
 
-    if (!isAuthenticated()) {
-      message = 'Vous devez être connecté pour publier une histoire.';
-      return;
-    }
+    // if (!isAuthenticated()) {
+    //   message = 'Vous devez être connecté pour publier une histoire.';
+    //   return;
+    // }
     try {
       const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + 'items/story', {
         method: 'POST',
@@ -54,7 +55,7 @@
         },
         body: JSON.stringify(story),
       });
-      window.location.reload();
+      // window.location.reload();
       const data = await response.json();
       console.log('Story published:', data);
       message = 'Votre histoire a été publiée avec succès.';
@@ -84,6 +85,15 @@
 
 <div class="container-create">
   <h2>Partagez votre plume</h2>
+  {#if !isAuthenticated()}
+  <div>Merci de vous identifier</div>
+
+  <div class ="button-container">
+   
+    <a href="/register" use:link>Se connecter</a>
+  </div>
+  {:else}
+
   <form on:submit|preventDefault={handleSubmit}>
     <div class="form"></div>
     <label>
@@ -112,10 +122,12 @@
     <button type="submit">Publier</button>
   </form>
   {#if message}
-    <p class="success">{message}</p>
-    {:else}
-    <p class="error"></p>
+  <p class="success">{message}</p>
+  {:else}
+  <p class="error"></p>
+{/if}
   {/if}
+  
 </div>
 
 

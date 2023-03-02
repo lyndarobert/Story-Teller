@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
   import { link } from "svelte-spa-router"; 
    import { onMount } from 'svelte';
   let stories = [];
@@ -27,4 +27,4 @@
   {#each stories as story}
     <li>{story.title}</li>
   {/each}
-</ul> -->
+</ul>

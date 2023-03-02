@@ -33,7 +33,7 @@
       <section class="stories" aria-labelledby="story-title-{story.id}">
         <div class="story-card" data-aos="fade-left" data-aos-easing="ease-out-back" data-aos-delay="40">
           <h2>{story.title}</h2>
-          <img src="https://khext1e9.directus.app/assets/{story.image}" alt="{story.title}">
+          <!-- <img src="https://khext1e9.directus.app/assets/{story.image}" alt="{story.title}"> -->
           <p>{story.content.slice(0, story.content.split(' ').slice(0, 30).join(' ').length) + "..."}</p>
           <a href="/story/{story.id}" use:link>Lire l'histoire</a>
           <p>{story.category}</p>
