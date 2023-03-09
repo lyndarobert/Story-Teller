@@ -15,7 +15,19 @@
 
     const token = localStorage.getItem('token');
 
-    const response = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/user/"+ id, {
+    const getId = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}users/me`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      
+     
+      })
+    const json = await getId.json();
+    console.log ("message", json)
+
+    const response = await fetch(`${import.meta.env.VITE_URL_DIRECTUS}users/${json.data.id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -23,16 +35,15 @@
       },
       body: JSON.stringify({
         "email": email,
-        "password": pwd,
-        "pseudo": newPseudo,
-        "new_password": newPwd
+        "password": newPwd,
+        "pseudo": newPseudo
+        
       })
     })
 
     if (response.status === 200) {
       console.log("Mot de passe modifié avec succès !");
-      handleLogout();
-      push("/login");
+      
     } else {
       console.log("Erreur lors de la modification du mot de passe.");
     }
@@ -40,26 +51,26 @@
 </script>
 
 
-<h1>Modifier le mot de passe</h1>
-
+<h1 class="title1">Modifier le mot de passe</h1>
+  
 <form on:submit={handleSubmit}>
-  <label>
+  <label for="email">
     Adresse e-mail :
-    <input type="email" bind:value={email} required>
   </label>
-  <label>
+  <input type="email" bind:value={email} required>
+  <label for="password">
     Mot de passe actuel :
-    <input type="password" bind:value={pwd} required>
   </label>
-  <label>
+  <input type="password" bind:value={pwd} required>
+  <label for="pseudo">
     Nouveau pseudo :
-    <input type="text" bind:value={newPseudo}>
   </label>
-  <label>
+  <input type="text" bind:value={newPseudo}>
+  <label for="new-password">
     Nouveau mot de passe :
-    <input type="password" bind:value={newPwd} required>
   </label>
-  <button type="submit">Modifier le mot de passe</button>
+  <input type="password" bind:value={newPwd} required>
+  <button type="submit" class="edit-password">Modifier le mot de passe</button>
 </form>
 
 
@@ -70,7 +81,7 @@
   .title1{
   text-align: center;
   padding: 2rem 0 0.5rem;
-  color: #F97066;
+  color: #FF8906;
 }
 
 form{
@@ -83,33 +94,33 @@ form{
 
 label{
   margin: 0.5rem;
-  color: #F97066;
+  color: #FF8906;
   font-weight: bold;
 }
 
 input{
   margin-bottom: 1rem;
   padding: 1rem 1.5rem;
-  border: 1px solid #F97066;
+  border: 1px solid #FF8906;
   border-radius: 10px;
   font-size: 1.1rem;
 }
 
-.connexion{
+.edit-password{
   border: 1px solid #F97066;
-  border-radius: 8px;
-  background-color: #F97066;
+  border-radius: 12px;
+  background-color: #FF8906;
   color: #fff;
   text-align: center;
-  padding: 1rem 4rem;
+  padding: 1rem 1.2rem;
   transition: all 0.4s;
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.connexion:hover{
+.edit-password:hover{
   cursor: pointer;
-  background-color: #f7958e;
+  background-color: #faa544;
   color: #fff;
 }
 
@@ -122,6 +133,18 @@ input{
     border: 1px solid #F97066;
     font-size: 1rem;
   }
+
+  .edit-password{
+  border: 1px solid #F97066;
+  border-radius: 12px;
+  background-color: #FF8906;
+  color: #fff;
+  text-align: center;
+  padding: 0.7rem 0.6rem;
+  transition: all 0.4s;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
 
 }
 

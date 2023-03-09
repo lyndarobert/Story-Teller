@@ -1,4 +1,4 @@
-import '../src/scss/app.css'
+import '../src/css/app.css'
 import App from './App.svelte'
 
 

@@ -6,15 +6,16 @@ export const isAuthenticated = () => {
  
    };
 
-console.log (isAuthenticated);   
+// console.log (isAuthenticated);   
 
 // Fonction pour déconnecter l'utilisateur
 export const handleLogout = () => {
     localStorage.removeItem('token');
-    push('/');
-    window.location.reload();
+    window.location.assign("/");
+    // push('/');
+    
   }
 
-  console.log (handleLogout);   
+  // console.log (handleLogout);   
 
   
