@@ -44,7 +44,7 @@
   {:then stories}
     {#each stories
       .filter((story) => story.status === "published")
-      .slice(0, 10) as story}
+      .slice(0, 30) as story}
       <section class="stories" aria-labelledby="story-title-{story.id}">
         <div
           class="story-card"
@@ -56,7 +56,7 @@
 
           {#if story?.image?.id}
             <img
-              src="https:/khext1e9.directus.app/assets/{story.image?.id}?width=100&fit=cover&format=webp"
+              src="https://khext1e9.directus.app/assets/{story.image?.id}?width=100&fit=cover&format=webp"
               alt={story.title}
               class="thumbnail"
             />

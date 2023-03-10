@@ -31,7 +31,7 @@
 
         {#if story?.image?.id}
           <img
-            src="https:/khext1e9.directus.app/assets/{story.image.id}"
+            src="https://khext1e9.directus.app/assets/{story.image.id}"
             alt={story.title}
             class="thumbnail"
           />
