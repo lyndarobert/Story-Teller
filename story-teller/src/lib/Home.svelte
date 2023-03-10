@@ -1,5 +1,6 @@
 <script>
   import { link } from "svelte-spa-router";
+  import Miniature from "../assets/miniaturebis.png";
 
   // fonction pour récupérer les histoires de l'API
   const getStories = async () => {
@@ -31,7 +32,7 @@
 
     <img
       class="miniature-responsive"
-      src="src/assets/miniaturebis.png"
+      src="{Miniature}"
       alt="responsive miniature"
       width="400"
     />
