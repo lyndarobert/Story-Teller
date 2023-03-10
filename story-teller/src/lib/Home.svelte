@@ -56,7 +56,7 @@
 
           {#if story?.image?.id}
             <img
-              src="https:/khext1e9.directus.app/assets/{story.image?.id}"
+              src="https:/khext1e9.directus.app/assets/{story.image?.id}?width=100&fit=cover&format=webp"
               alt={story.title}
               class="thumbnail"
             />
