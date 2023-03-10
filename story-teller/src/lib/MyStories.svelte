@@ -3,6 +3,7 @@
   import { isAuthenticated } from '../auth';
   import { link } from "svelte-spa-router";
   import Swal from 'sweetalert2';
+  
 
   
   let stories = [];
