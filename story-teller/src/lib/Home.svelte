@@ -44,7 +44,7 @@
   {:then stories}
     {#each stories
       .filter((story) => story.status === "published")
-      .slice(0, 4) as story}
+      .slice(0, 10) as story}
       <section class="stories" aria-labelledby="story-title-{story.id}">
         <div
           class="story-card"

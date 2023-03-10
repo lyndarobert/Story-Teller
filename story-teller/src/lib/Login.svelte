@@ -1,6 +1,7 @@
 <script>
   import { push } from "svelte-spa-router";
   import { link } from "svelte-spa-router";
+  import Login from "../assets/New Product Feature Gradient Promotion Tablet Mockup Instagram Post.gif";
 
   // export let reload = false;
 
@@ -73,7 +74,7 @@
   </div>
   <img
     class="img-login-page"
-    src="src/assets/New Product Feature Gradient Promotion Tablet Mockup Instagram Post.gif"
+    src="{Login}"
     alt="connexion"
     width="500"
     data-aos="fade-right"

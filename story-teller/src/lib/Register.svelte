@@ -1,6 +1,7 @@
 <script>
  import {push} from 'svelte-spa-router'
  import { link } from "svelte-spa-router";
+ import Register from "../assets/pexels-picjumbocom-196649.jpg";
 
 
 export let reload = false;
@@ -77,7 +78,7 @@ export let reload = false;
  </form>
 
  </div>
-  <img class="register-img" src="src/assets/pexels-picjumbocom-196649.jpg" alt="register" width="600" data-aos="fade-right">
+  <img class="register-img" src="{Register}" alt="register" width="600" data-aos="fade-right">
  </div>
 
 
