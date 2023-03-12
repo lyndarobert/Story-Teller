@@ -43,6 +43,8 @@
 
     if (response.status === 200) {
       console.log("Mot de passe modifié avec succès !");
+      handleLogout(); // déconnexion de l'utilisateur
+      push('/'); // redirection vers la page d'accueil
       
     } else {
       console.log("Erreur lors de la modification du mot de passe.");
