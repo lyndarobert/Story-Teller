@@ -29,6 +29,7 @@
         body: JSON.stringify({ email, password }),
       }
     );
+    console.log (response);
 
     // Vérification de la réponse
     if (!response.ok) {
