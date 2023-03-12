@@ -1,5 +1,6 @@
 
 <script>
+  import createStorypic from "../assets/CreateStory.jpg"
  
 
   import { createEventDispatcher } from 'svelte';
@@ -104,14 +105,15 @@
 <div class="container-create">
   {#if !isAuthenticated()}
   <div class="content-not-authenticated">
-  <p>Merci de vous inscrire ou de vous connectez</p>
+  <p>Merci de vous inscrire ou de vous connecter</p>
 
    <a class="button-container" href="/register" use:link>S'inscrire</a>
+   <a class ="loggedin" href="/login" use:link>Dejà enregistré ?</a>
 
 </div>
 
 <div>
-<img class="register-img" src="src/assets/CreateStory.jpg" alt="register" width="600" data-aos="fade-right">
+<img class="register-img" src="{createStorypic}" alt="register" width="600" data-aos="fade-right">
 </div>
 
   {:else}
@@ -167,6 +169,14 @@
 
 <style>
 
+.loggedin {
+  background-color: #0F0E17;
+  color: white;
+  text-align: center;
+  text-decoration: underline;
+  font-weight: bold;
+  margin-top: 5px;
+}
 
 
   .publication{

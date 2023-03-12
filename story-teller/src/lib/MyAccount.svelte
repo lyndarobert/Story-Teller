@@ -51,7 +51,7 @@
 </script>
 
 
-<h1 class="title1">Modifier le mot de passe</h1>
+<h1 class="title1">Modifiez vos informations</h1>
   
 <form on:submit={handleSubmit}>
   <label for="email">
