@@ -3,6 +3,7 @@
   import { isAuthenticated } from '../auth';
   import { link } from "svelte-spa-router";
   import Swal from 'sweetalert2';
+  import CoverLogo from "../assets/coverlogo.png";
   
 
   
@@ -109,7 +110,7 @@ async function updateStoryStatus(storyId, newStatus) {
               {#if story?.image?.id}
               <img src="https://khext1e9.directus.app/assets/{story.image?.id}" alt="{story.title}" class = "thumbnail">
               {:else}
-              <img src="src/assets/coverlogo.png" alt="Logo" class = "thumbnail">
+              <img src="{CoverLogo}" alt="Logo" class = "thumbnail">
             {/if}
 
 

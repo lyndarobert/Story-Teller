@@ -1,6 +1,7 @@
 <script>
   import { link } from "svelte-spa-router";
   import Miniature from "../assets/miniaturebis.png";
+  import CoverLogo from "../assets/coverlogo.png";
 
   // fonction pour récupérer les histoires de l'API
   const getStories = async () => {
@@ -62,7 +63,7 @@
               class="thumbnail"
             />
           {:else}
-            <img src="src/assets/coverlogo.png" alt="Logo" class="thumbnail" />
+            <img src="{CoverLogo}" alt="Logo" class="thumbnail" />
           {/if}
 
           {#if story.content}
