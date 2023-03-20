@@ -1,8 +1,6 @@
 
 <script>
   import createStorypic from "../assets/CreateStory.jpg"
- 
-
   import { createEventDispatcher } from 'svelte';
   import { isAuthenticated } from '../auth.js';
   import { link } from "svelte-spa-router";
@@ -36,8 +34,11 @@
 
   loadCategories(); // appel de la fonction pour charger les catégories au démarrage
 
-  function handleSubmit() {
+  function handleSubmit() { 
+    //  fonction qui est appelée lorsque l'utilisateur soumet l'histoire en remplissant le formulaire
     
+    // La fonction va créer un nouvel objet newStory en utilisant les valeurs du 
+    // formulaire et appelle la fonction handleCreate() pour publier l'histoire en utilisant l'API Directus.
     const newStory = {
       title: title,
       content: sanitizeHtml(content),
@@ -47,6 +48,9 @@
     };
     handleCreate(newStory);
   }
+
+  // fonction asynchrone qui envoie une requête POST à l'API Directus
+  //  pour créer une nouvelle histoire avec les données de l'objet story.
 
   async function handleCreate(story) {
     const token = localStorage.getItem('token');
