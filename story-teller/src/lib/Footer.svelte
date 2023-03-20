@@ -2,15 +2,25 @@
   import { onMount } from 'svelte';
   import Logo from '../assets/Logo.png';
 
+
+  
+
   let numStories = 0;
   let numUsers = 0;
+
+  // La fonction updateStats() envoie des requêtes à l'API Directus pour récupérer le nombre d'histoires 
+  // et d'utilisateurs enregistrés. Les données sont stockées dans les variables numStories et numUsers.
 
   const updateStats = async () => {
     const storiesResponse = await fetch(import.meta.env.VITE_URL_DIRECTUS + "items/story?fields=id");
     const usersResponse = await fetch(import.meta.env.VITE_URL_DIRECTUS + "users?fields=id");
 
+
     const storiesJson = await storiesResponse.json();
     const usersJson = await usersResponse.json();
+
+    // Ensuite, ces variables sont utilisées pour créer un tableau
+    //  d'objets stats contenant les textes des statistiques et les nombres associés.
 
     numStories = storiesJson.data?.length;
     numUsers = usersJson.data?.length;
@@ -29,6 +39,8 @@
 
   let stats = [];
 
+
+  // La fonction onMount() est utilisée pour exécuter la fonction updateStats() après que le composant a été monté.
   onMount(updateStats);
 
 </script>
